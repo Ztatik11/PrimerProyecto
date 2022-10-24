@@ -1,40 +1,45 @@
 
 import React , {useState} from "react";
-import {Button, Text, View, StyleSheet} from "react-native";
+import {Button, Text, View, StyleSheet, TextInput} from "react-native";
 
 export default function App () {
-  const [count, setCount] = useState(0);
-  const [count10, setCount10] = useState(0);
+  
+  const nombre = "Alvaro";
+  const apellidos = "Carrasco Garcia";
+  const [edad,setEdad] = useState(null);
+  
+
   return (
+    
     <View>
-      <View>
-        <Button
-          onPress={() => {
-            setCount(count+1)
-          }}
-          title={"Cuenta"}
-        />
-        <Text>Cada vez que pulse, suma 1 al contador</Text>
+      <View  style ={[styles.View]}>
+      <Text> Mi nombre es </Text>
+      <Text style ={[styles.bigBlue]}>{nombre} {apellidos} </Text>
       </View>
-      <View>
-        <Button
-          onPress={() => {
-            setCount10(count10+10)
-          }}
-          title={"Cuenta"}
-        />
-        <Text>Cada vez que pulse, suma 10 al contador</Text>
-      </View>
-      <View>
-        <Button style={[styles.boton_reset]}
-          onPress={() => {
-            setCount(0)
-            setCount10(0)
-          }}
-          title={"Cuenta"}
-        />
-        <Text style={[styles.red,styles.bigBlue]}>Resetea el contador+count</Text>
+
+      <View style ={[styles.View]}>
+        <Text>Escribe aqui tu edad</Text>
         
+        <TextInput id='cuadro_texto' style ={[styles.cuadrotexto]} 
+        placeholder="Edad" 
+        keyboardType="numeric"
+        
+        />
+        
+      </View>
+
+      <View>
+
+      </View>
+
+      <View>
+      <Button
+          onPress={() => {
+            getInputValue();
+            console.log({edad});
+          }}
+          title={"Finalizar"}
+        />
       </View>
 
     </View>
@@ -42,6 +47,16 @@ export default function App () {
 }
 
 const styles = StyleSheet.create({
+
+  View:{
+    padding:50,
+    textAlign:"right",
+  },
+
+  cuadrotexto:{
+    backgroundColor:"white",
+  },
+
   bigBlue: {
     color: 'blue',
   },
@@ -49,7 +64,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
 
-  boton_reset: {
+  boton_finalizar: {
     backgroundColor: 'red',
     padding: 100,
   }
