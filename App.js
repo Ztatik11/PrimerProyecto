@@ -4,8 +4,8 @@ import {Button, Text, View, StyleSheet, TextInput,} from "react-native";
 
 export default function App () {
   
-  const nombre = "Alvaro";
-  const apellidos = "Carrasco Garcia";
+  const nombre = <Text style ={[styles.bigBlue]}>Alvaro</Text>;
+  const apellidos = <Text style ={[styles.bigBlue]}>Carrasco Garcia</Text>;
   const [edad,setEdad] = useState(null);
   const [Texto,setTexto] = useState(null);
   
@@ -44,10 +44,10 @@ export default function App () {
     
     <View>
       <View  style ={[styles.View]}>
-      <Text> Mi nombre es </Text>
-      <Text style ={[styles.bigBlue]}>{nombre} {apellidos} </Text>
+      <Text> Mi nombre es {nombre} y mis apellidos son {apellidos}</Text>
+      
       </View>
-
+      
       <View style ={[styles.View]}>
         <Text>Escribe aqui tu edad</Text>
         
