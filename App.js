@@ -93,10 +93,7 @@ const styles = StyleSheet.create({
     position: "relative",
     right: 100,
     color: 'red',
-  },
-
-  green: {
-    color: 'green',
+    fontSize:15
   },
 
   boton_finalizar: {
