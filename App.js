@@ -1,13 +1,44 @@
 
 import React , {useState} from "react";
-import {Button, Text, View, StyleSheet, TextInput} from "react-native";
+import {Button, Text, View, StyleSheet, TextInput,} from "react-native";
 
 export default function App () {
   
   const nombre = "Alvaro";
   const apellidos = "Carrasco Garcia";
   const [edad,setEdad] = useState(null);
+  const [Texto,setTexto] = useState(null);
   
+  const resultado = () => {
+    if (edad == 18) {
+      styles.resultado.color ='red'
+      setTexto(
+        <Text style ={[styles.resultado]}>
+        Acaba de ser mayor de edad
+        </Text>
+      )
+      
+
+    } else if (edad < 18) {
+      styles.resultado.color ='green'
+      setTexto(
+        <Text style ={[styles.resultado]}>
+        Es menor de edad
+        </Text> 
+      )
+      
+
+    } else {
+      styles.resultado.color ='blue'
+      setTexto(
+        <Text style ={[styles.resultado]}>
+        Es mayor de edad
+        </Text>
+      )
+      
+    }
+    
+  }
 
   return (
     
@@ -23,25 +54,22 @@ export default function App () {
         <TextInput id='cuadro_texto' style ={[styles.cuadrotexto]} 
         placeholder="Edad" 
         keyboardType="numeric"
+        onChangeText={edad => setEdad(edad)}
+        value={edad}
         
         />
         
       </View>
-
+      
       <View>
-
-      </View>
-
-      <View>
-      <Button
-          onPress={() => {
-            getInputValue();
-            console.log({edad});
-          }}
-          title={"Finalizar"}
+        <Button
+            onPress={resultado}
+            title={"Finalizar"}
         />
+        <Text>{Texto}</Text>
+        <Text>{styles.resultado.color}</Text>
       </View>
-
+      
     </View>
   );
 }
@@ -50,7 +78,7 @@ const styles = StyleSheet.create({
 
   View:{
     padding:50,
-    textAlign:"right",
+    textAlign:"center",
   },
 
   cuadrotexto:{
@@ -60,13 +88,22 @@ const styles = StyleSheet.create({
   bigBlue: {
     color: 'blue',
   },
-  red: {
+  resultado: {
+    textAlign:"center",
+    position: "relative",
+    right: 100,
     color: 'red',
+  },
+
+  green: {
+    color: 'green',
   },
 
   boton_finalizar: {
     backgroundColor: 'red',
     padding: 100,
+    width: 3,
+    height: 4,
   }
 });
 
