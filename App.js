@@ -17,8 +17,6 @@ export default function App () {
         Acaba de ser mayor de edad
         </Text>
       )
-      
-
     } else if (edad < 18) {
       styles.resultado.color ='green'
       setTexto(
@@ -26,8 +24,6 @@ export default function App () {
         Es menor de edad
         </Text> 
       )
-      
-
     } else {
       styles.resultado.color ='blue'
       setTexto(
@@ -35,23 +31,21 @@ export default function App () {
         Es mayor de edad
         </Text>
       )
-      
     }
-    
   }
 
   return (
     
-    <View>
-      <View  style ={[styles.View]}>
-      <Text> Mi nombre es {nombre} y mis apellidos son {apellidos}</Text>
+    <View style ={[styles.View]}>
+      <View style ={[styles.View]}>
+      <Text style ={[styles.Texto]}> Mi nombre es {nombre} y mis apellidos son {apellidos}</Text>
       
       </View>
       
       <View style ={[styles.View]}>
-        <Text>Escribe aqui tu edad</Text>
+        <Text style ={[styles.Texto]}>Escribe aqui tu edad:</Text>
         
-        <TextInput id='cuadro_texto' style ={[styles.cuadrotexto]} 
+        <TextInput style ={[styles.cuadrotexto]} 
         placeholder="Edad" 
         keyboardType="numeric"
         onChangeText={edad => setEdad(edad)}
@@ -61,13 +55,12 @@ export default function App () {
         
       </View>
       
-      <View>
+      <View style ={[styles.View]}>
         <Button
             onPress={resultado}
             title={"Finalizar"}
         />
         <Text>{Texto}</Text>
-        <Text>{styles.resultado.color}</Text>
       </View>
       
     </View>
@@ -76,13 +69,25 @@ export default function App () {
 
 const styles = StyleSheet.create({
 
+  Texto:{
+    color:'black'
+  },
+
   View:{
-    padding:50,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     textAlign:"center",
+    backgroundColor:"white",
   },
 
   cuadrotexto:{
     backgroundColor:"white",
+    color:'grey',
+    borderColor:'grey',
+    borderWidth:1,
+    width:300,
+    
   },
 
   bigBlue: {
@@ -103,4 +108,3 @@ const styles = StyleSheet.create({
     height: 4,
   }
 });
-
