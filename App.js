@@ -3,6 +3,8 @@ import React , {useState} from "react";
 import {Button, Text, View, StyleSheet, TextInput,} from "react-native";
 
 export default function App () {
+
+
   
   const nombre = <Text style ={[styles.bigBlue]}>Alvaro</Text>;
   const apellidos = <Text style ={[styles.bigBlue]}>Carrasco Garcia</Text>;
@@ -13,21 +15,21 @@ export default function App () {
     if (edad == 18) {
       styles.resultado.color ='red'
       setTexto(
-        <Text style ={[styles.resultado]}>
+        <Text style={{color:'red'}}>
         Acaba de ser mayor de edad
         </Text>
       )
     } else if (edad < 18) {
       styles.resultado.color ='green'
       setTexto(
-        <Text style ={[styles.resultado]}>
+        <Text style={{color:'green'}}>
         Es menor de edad
         </Text> 
       )
     } else {
       styles.resultado.color ='blue'
       setTexto(
-        <Text style ={[styles.resultado]}>
+        <Text style={{color:'blue'}}>
         Es mayor de edad
         </Text>
       )
@@ -38,6 +40,7 @@ export default function App () {
     
     <View style ={[styles.View]}>
       <View style ={[styles.View]}>
+
       <Text style ={[styles.Texto]}> Mi nombre es {nombre} y mis apellidos son {apellidos}</Text>
       
       </View>
@@ -50,7 +53,6 @@ export default function App () {
         keyboardType="numeric"
         onChangeText={edad => setEdad(edad)}
         value={edad}
-        
         />
         
       </View>
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
     color:'black'
   },
 
+  aplicacion:{
+    flex: 1,
+    alignItems: 'center',
+  },
+
   View:{
     flex: 1,
     alignItems: 'center',
@@ -93,6 +100,7 @@ const styles = StyleSheet.create({
   bigBlue: {
     color: 'blue',
   },
+
   resultado: {
     textAlign:"center",
     position: "relative",
