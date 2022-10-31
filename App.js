@@ -13,21 +13,18 @@ export default function App () {
   
   const resultado = () => {
     if (edad == 18) {
-      styles.resultado.color ='red'
       setTexto(
         <Text style={{color:'red'}}>
         Acaba de ser mayor de edad
         </Text>
       )
     } else if (edad < 18) {
-      styles.resultado.color ='green'
       setTexto(
         <Text style={{color:'green'}}>
         Es menor de edad
         </Text> 
       )
     } else {
-      styles.resultado.color ='blue'
       setTexto(
         <Text style={{color:'blue'}}>
         Es mayor de edad
