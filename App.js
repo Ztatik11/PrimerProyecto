@@ -1,37 +1,37 @@
 
 import React , {useState} from "react";
-import {Button, Text, View, StyleSheet, TextInput,} from "react-native";
+import {Button, Text, View, StyleSheet, TextInput} from "react-native";
 
 export default function App () {
   
   const nombre = <Text style ={[styles.bigBlue]}>Alvaro</Text>;
   const apellidos = <Text style ={[styles.bigBlue]}>Carrasco Garcia</Text>;
   const [edad,setEdad] = useState(null);
+  const [color_texto,setColorTexto] = useState(null);
   const [Texto,setTexto] = useState(null);
+
+  function validador_edad(edad) {
+    const value = /^[0-9]+/;
+    return value.test(edad);
+  }
   
   const resultado = () => {
-    if (edad == 18) {
-      styles.resultado.color ='red'
-      setTexto(
-        <Text style ={[styles.resultado]}>
-        Acaba de ser mayor de edad
-        </Text>
-      )
-    } else if (edad < 18) {
-      styles.resultado.color ='green'
-      setTexto(
-        <Text style ={[styles.resultado]}>
-        Es menor de edad
-        </Text> 
-      )
+
+    if (validador_edad(edad)==true) {
+      if (edad == 18) {
+        setColorTexto('red');
+        setTexto('Acaba de ser mayor de edad')
+      } else if (edad < 18) {
+        setColorTexto('green');
+        setTexto('Es menor de edad')
+      } else {
+        setColorTexto('blue');
+        setTexto('Es mayor de edad')
+      }
     } else {
-      styles.resultado.color ='blue'
-      setTexto(
-        <Text style ={[styles.resultado]}>
-        Es mayor de edad
-        </Text>
-      )
+      setTexto('Los datos introducidos no son validos')
     }
+    
   }
 
   return (
@@ -60,7 +60,7 @@ export default function App () {
             onPress={resultado}
             title={"Finalizar"}
         />
-        <Text>{Texto}</Text>
+        <Text style={{color:{color_texto}}}>{Texto}</Text>
       </View>
       
     </View>
