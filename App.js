@@ -5,23 +5,43 @@ export default function App () {
 
   const [isEnabled,setisEnabled]= useState(null);
   const [imagen_uno,setImagen1]= useState(null);
-  
-  const nombre = <Text style ={[styles.bigBlue]}>Alvaro</Text>;
-  const apellidos = <Text style ={[styles.bigBlue]}>Carrasco Garcia</Text>;
-  const [edad,setEdad] = useState(null);
-  const [Texto,setTexto] = useState(null);
+  const reglas = {
+    solo_texto : /[a-zA-ZÁ-ÿ]+$/,
+    solo_numeros : /[0-9]+$/,
+    correo : /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]+$/,
+  }
+
+  const [datos,setDatos] =useState({
+    nombre: '',
+    apellido: '',
+    edad: '',
+    correo: '',
+    genero: '',
+  })
+
   const [Validacion,setValidacion] = useState(false);
   
-  const resultado = () => {
-    if (edad == 18) {
-      
+  const validacion_campo_texto = (valor_formulario) => {
+    if (reglas.solo_texto.test(valor_formulario)) {
+      setValidacion(true)
     } else {
-      styles.resultado.color ='blue'
-      setTexto(
-        <Text style={{color:'blue'}}>
-        Es mayor de edad
-        </Text>
-      )
+      setValidacion(false)
+    }
+  }
+
+  const validacion_campo_numerico = (valor_formulario) => {
+    if (reglas.solo_numeros.test(valor_formulario)) {
+      setValidacion(true)
+    } else {
+      setValidacion(false)
+    }
+  }
+
+  const validacion_campo_correo = (valor_formulario) => {
+    if (reglas.correo.test(valor_formulario)) {
+      setValidacion(true)
+    } else {
+      setValidacion(false)
     }
   }
 
@@ -31,14 +51,16 @@ export default function App () {
       <View style ={[styles.contenedor_datos]}>
       <Text>Nombre:</Text>
         <TextInput style ={[styles.cuadrotexto]}
+        name="nombre"
         placeholder="Nombre" 
-        onChangeText={edad => setEdad(edad)}
-        value={edad}
+        onChangeText={validacion_campo_texto()}
+        value={nombre}
       />
       </View>
       <View style ={[styles.contenedor_datos]}>
       <Text>Apellidos:</Text>
         <TextInput style ={[styles.cuadrotexto]}
+        name="apellidos"
         placeholder="Apellidos" 
         onChangeText={edad => setEdad(edad)}
         value={edad}
@@ -47,6 +69,7 @@ export default function App () {
       <View style ={[styles.contenedor_datos]}>
       <Text>Edad:</Text>
         <TextInput style ={[styles.cuadrotexto]}
+        name="edad"
         placeholder="Edad" 
         onChangeText={edad => setEdad(edad)}
         value={edad}
@@ -55,9 +78,10 @@ export default function App () {
       <View style ={[styles.contenedor_datos]}>
       <Text>Correo Electronico:</Text>
         <TextInput style ={[styles.cuadrotexto]}
+        name="correo"
         placeholder="Correo electronico" 
-        onChangeText={edad => setEdad(edad)}
-        value={edad}
+        onChangeText={correo => setEdad(edad)}
+        value={correo}
       />
       </View>
       <Text>Genero</Text>
@@ -72,6 +96,7 @@ export default function App () {
           />
         <Text>MUJER</Text>
       </View>
+      
       <View style ={[styles.contenedor_datos]}>
       <Button
             onPress={resultado}
