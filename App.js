@@ -1,90 +1,84 @@
 import React , {useState} from "react";
-import {Button, Text, View, StyleSheet, TextInput,Switch} from "react-native";
+import {Button, Text, View, StyleSheet, TextInput,Switch,Image} from "react-native";
 
 export default function App () {
-
-  const [isEnabled,setisEnabled]= useState(null);
-  const [imagen_uno,setImagen1]= useState(null);
-  const reglas = {
-    solo_texto : /[a-zA-ZÁ-ÿ]+$/,
-    solo_numeros : /[0-9]+$/,
-    correo : /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]+$/,
-  }
-
-  const [datos,setDatos] =useState({
-    nombre: '',
-    apellido: '',
-    edad: '',
-    correo: '',
-    genero: '',
-  })
-
-  const [Validacion,setValidacion] = useState(false);
+  const [isEnabled,setisEnabled]= useState(false);
+  const [Resultado,setResultado] = useState(null);
+  const [Imagen,setImagen] = useState(null);
+  const solo_texto = /[a-zA-ZÁ-ÿ\s]+$/
+  const solo_numero = /[0-9\s]+$/
+  const formato_correo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/
   
-  const validacion_campo_texto = (valor_formulario) => {
-    if (reglas.solo_texto.test(valor_formulario)) {
-      setValidacion(true)
-    } else {
-      setValidacion(false)
-    }
-  }
+  const [validacion_nombre,setvalidacion_nombre] =useState(false)
+  const [validacion_apellido,setvalidacion_apellido] =useState(false)
+  const [validacion_edad,setvalidacion_edad] =useState(false)
+  const [validacion_correo,setvalidacion_correo] =useState(false)
 
-  const validacion_campo_numerico = (valor_formulario) => {
-    if (reglas.solo_numeros.test(valor_formulario)) {
-      setValidacion(true)
-    } else {
-      setValidacion(false)
-    }
-  }
+  const [Nombre,setNombre] =useState(null)
+  const [Apellido,setApellido] =useState(null)
+  const [Edad,setEdad] =useState(null)
+  const [Correo,setCorreo] =useState(null)
+  const [Genero,setGenero] =useState(null)
 
-  const validacion_campo_correo = (valor_formulario) => {
-    if (reglas.correo.test(valor_formulario)) {
-      setValidacion(true)
+  const resultado = () => {
+    if (validacion_nombre==true && validacion_apellido==true && validacion_edad==true && validacion_correo==true) {
+      setGenero(isEnabled ? "Mujer":"Hombre")
+      setResultado(
+        <Text>
+          Mi nombre es {Nombre}{Apellido}, mi edad es {Edad}, mi genero es {Genero}, mi correo electronico es {Correo}
+        </Text>
+        )
+      setImagen(
+        <Image
+          style = {[styles.imagen]}
+          source={{uri :"https://media.tenor.com/xlydCKGNv9kAAAAC/funny-meme.gif"}}
+        />
+      )
+        console.log(isEnabled)
+        console.log(Genero)
     } else {
-      setValidacion(false)
+      setResultado("Los datos no son correctos o te falta introducir algun dato")
     }
   }
+ 
+  
 
   return (
     <View style ={[styles.aplicacion]}>
       <Text style ={[styles.titulo]}>FORMULARIO</Text>
       <View style ={[styles.contenedor_datos]}>
       <Text>Nombre:</Text>
-        <TextInput style ={[styles.cuadrotexto]}
+        <TextInput style ={validacion_nombre ? [styles.cuadrotexto_bien]:[styles.cuadrotexto_mal]}
         name="nombre"
         placeholder="Nombre" 
-        onChangeText={validacion_campo_texto()}
-        value={nombre}
+        onChangeText={nombre=>validacion_campo_nombre(nombre)}
       />
       </View>
       <View style ={[styles.contenedor_datos]}>
       <Text>Apellidos:</Text>
-        <TextInput style ={[styles.cuadrotexto]}
+        <TextInput style ={validacion_apellido ? [styles.cuadrotexto_bien]:[styles.cuadrotexto_mal]}
         name="apellidos"
         placeholder="Apellidos" 
-        onChangeText={edad => setEdad(edad)}
-        value={edad}
+        onChangeText={Apellido=>validacion_campo_apellido(Apellido)}
       />
       </View>
       <View style ={[styles.contenedor_datos]}>
       <Text>Edad:</Text>
-        <TextInput style ={[styles.cuadrotexto]}
+        <TextInput style ={validacion_edad ? [styles.cuadrotexto_bien]:[styles.cuadrotexto_mal]}
         name="edad"
         placeholder="Edad" 
-        onChangeText={edad => setEdad(edad)}
-        value={edad}
+        onChangeText={Edad=>validacion_campo_edad(Edad)}
       />
       </View>
       <View style ={[styles.contenedor_datos]}>
       <Text>Correo Electronico:</Text>
-        <TextInput style ={[styles.cuadrotexto]}
+        <TextInput style ={validacion_correo ? [styles.cuadrotexto_bien]:[styles.cuadrotexto_mal]}
         name="correo"
         placeholder="Correo electronico" 
-        onChangeText={correo => setEdad(edad)}
-        value={correo}
+        onChangeText={Correo=>validacion_campo_correo(Correo)}
       />
       </View>
-      <Text>Genero</Text>
+      <Text>GENERO</Text>
       <View style ={[styles.contenedor_genero]}>
         <Text>HOMBRE</Text>
         <Switch
@@ -92,22 +86,63 @@ export default function App () {
           thumbColor={isEnabled ? 'blue':'red'}
           onValueChange={()=>setisEnabled(previousState=>!previousState)}
           value={isEnabled}
-          imagen_uno = {isEnabled ? imagen_uno:null}
           />
+        
         <Text>MUJER</Text>
       </View>
-      
       <View style ={[styles.contenedor_datos]}>
       <Button
             onPress={resultado}
             title={"Finalizar"}
       />
-      <Text>{Texto}</Text>
+      
       </View>
-    </View>
-    
-  );
+      <Text>{Resultado}</Text>
+      
+    </View>);
+  function validacion_campo_nombre(nombre){
+    if (solo_texto.test(nombre)) {
+      console.log("Validacion 1")
+      setvalidacion_nombre(true)
+      setNombre(nombre)
+    } else {
+      setvalidacion_nombre(false)
+    }
+  }
+  
+  function validacion_campo_apellido(apellido){
+    if (solo_texto.test(apellido)) {
+      console.log("Validacion 2")
+      setvalidacion_apellido(true)
+      setApellido(apellido)
+    } else {
+      setvalidacion_apellido(false)
+    }
+  }
+  
+  function validacion_campo_edad(edad){
+    if (solo_numero.test(edad)) {
+      console.log("Validacion 3")
+      setvalidacion_edad(true)
+      setEdad(edad)
+    } else {
+      setvalidacion_edad(false)
+    }
+  }
+  
+  function validacion_campo_correo(correo){
+    if (formato_correo.test(correo)) {
+      console.log("Validacion 4")
+      setvalidacion_correo(true)
+      setCorreo(correo)
+    } else {
+      setvalidacion_correo(false)
+    }
+  }
 }
+
+
+
 
 const styles = StyleSheet.create({
 
@@ -138,10 +173,18 @@ const styles = StyleSheet.create({
     borderRadius:50,
   },
 
-  cuadrotexto:{
+  cuadrotexto_bien:{
     backgroundColor:"white",
     color:'white',
     borderColor:'grey',
+    borderWidth:1,
+    width:200,
+  },
+
+  cuadrotexto_mal:{
+    backgroundColor:"white",
+    color:'white',
+    borderColor:'red',
     borderWidth:1,
     width:200,
   },
