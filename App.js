@@ -31,7 +31,7 @@ export default function App () {
       setImagen(
         <Image
           style = {[styles.imagen]}
-          source={{uri :"https://media.tenor.com/xlydCKGNv9kAAAAC/funny-meme.gif"}}
+          source={{uri :"https://media.tenor.com/BwKANaB-zwIAAAAC/bob-esponja-dan%C3%A7ando.gif"}}
         />
       )
         console.log(isEnabled)
@@ -98,6 +98,10 @@ export default function App () {
       
       </View>
       <Text>{Resultado}</Text>
+      <View style ={[styles.contenedor_datos]}>
+        {Imagen}
+      </View>
+      
       
     </View>);
   function validacion_campo_nombre(nombre){
@@ -187,5 +191,11 @@ const styles = StyleSheet.create({
     borderColor:'red',
     borderWidth:1,
     width:200,
+  },
+
+  imagen: {
+    width: 100,
+    height: 100,
+    opacity: 1,
   },
 });
