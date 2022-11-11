@@ -37,6 +37,7 @@ export default function App () {
         console.log(isEnabled)
         console.log(Genero)
     } else {
+      setImage(null)
       setResultado("Los datos no son correctos o te falta introducir algun dato")
     }
   }
